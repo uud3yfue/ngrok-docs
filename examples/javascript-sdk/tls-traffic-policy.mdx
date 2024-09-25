@@ -7,7 +7,7 @@ const fs = require("fs");
 		addr: 8080,
 		proto: "tls",
 		authtoken_from_env: true,
-		policy: fs.readFileSync("/path/to/policy.json", "utf8"),
+		traffic_policy: fs.readFileSync("/path/to/policy.json", "utf8"),
 	});
 
 	console.log(`Ingress established at: ${listener.url()}`);
@@ -16,7 +16,7 @@ const fs = require("fs");
 
 ```yaml title="policy.json"
 {
-  "inbound":
+  "on_tcp_connect":
     [
       {
         "name": "DenyTrafficOutsideUS",
@@ -41,4 +41,4 @@ const fs = require("fs");
 
 Javascript SDK Docs:
 
-- [https://ngrok.github.io/ngrok-javascript/classes/TlsListenerBuilder.html#policy](https://ngrok.github.io/ngrok-javascript/classes/TlsListenerBuilder.html#policy)
+- [https://ngrok.github.io/ngrok-javascript/classes/TlsListenerBuilder.html#trafficPolicy](https://ngrok.github.io/ngrok-javascript/classes/TlsListenerBuilder.html#trafficPolicy)

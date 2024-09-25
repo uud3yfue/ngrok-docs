@@ -1,12 +1,12 @@
 ```python
 with open('/path/to/policy.json') as f:
         policy = json.load(f)
-        listener = await session.http_endpoint().policy(policy).listen()
+        listener = await session.http_endpoint().traffic_policy(policy).listen()
 ```
 
 ```yaml title="policy.json"
 {
-  "inbound":
+  "on_tcp_connect":
     [
       {
         "name": "DenyTrafficOutsideUS",
@@ -31,4 +31,4 @@ with open('/path/to/policy.json') as f:
 
 Python SDK Docs:
 
-- [https://ngrok.github.io/ngrok-python/http_listener_builder.html#ngrok.HttpListenerBuilder.policy](https://ngrok.github.io/ngrok-python/http_listener_builder.html#ngrok.HttpListenerBuilder.policy)
+- [https://ngrok.github.io/ngrok-python/http_listener_builder.html#ngrok.HttpListenerBuilder.traffic_policy](https://ngrok.github.io/ngrok-python/http_listener_builder.html#ngrok.HttpListenerBuilder.traffic_policy)
