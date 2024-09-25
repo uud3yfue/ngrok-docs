@@ -4,29 +4,60 @@ with open('/path/to/policy.json') as f:
         listener = await session.http_endpoint().traffic_policy(policy).listen()
 ```
 
-```yaml title="policy.json"
+:::info
+
+Traffic Policies can be defined in `json` or `yaml`!
+
+:::
+
+```json title="policy.json"
 {
-  "on_tcp_connect":
-    [
-      {
-        "name": "DenyTrafficOutsideUS",
-        "expressions": ["conn.geo.country_code != 'US'"],
-        "actions": [{ "type": "deny" }],
-      },
-      {
-        "name": "LogRequestsFromKnownIP",
-        "expressions": ["conn.client_ip == '110.0.0.1"],
-        "actions":
-          [
-            {
-              "type": "log",
-              "config":
-                { "metadata": { "event": "known-ip", "data": "110.0.0.1" } },
-            },
-          ],
-      },
-    ],
+	"on_tcp_connect": [
+		{
+			"name": "DenyTrafficOutsideUS",
+			"expressions": ["conn.Geo.CountryCode != 'US'"],
+			"actions": [
+				{
+					"type": "deny"
+				}
+			]
+		},
+		{
+			"name": "LogRequestsFromKnownIP",
+			"expressions": ["conn.ClientIP == '110.0.0.1"],
+			"actions": [
+				{
+					"type": "log",
+					"config": {
+						"metadata": {
+							"event": "known-ip",
+							"data": "110.0.0.1"
+						}
+					}
+				}
+			]
+		}
+	]
 }
+```
+
+```yaml title="policy.yaml"
+---
+on_tcp_connect:
+  - name: DenyTrafficOutsideUS
+    expressions:
+      - conn.Geo.CountryCode != 'US'
+    actions:
+      - type: deny
+  - name: LogRequestsFromKnownIP
+    expressions:
+      - conn.ClientIP == '110.0.0.1
+    actions:
+      - type: log
+        config:
+          metadata:
+            event: known-ip
+            data: 110.0.0.1
 ```
 
 Python SDK Docs:
